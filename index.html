@@ -244,7 +244,7 @@
             <h1>Neural Cosmos: Human Brain Explorer</h1>
             <p>Hover or click each region to reveal function, signal intensity, and cognitive profile.</p>
           </div>
-          <span id="regionCountBadge" class="badge">Loading regions…</span>
+          <span id="regionCountBadge" class="badge" aria-live="polite">Loading regions…</span>
         </section>
 
         <section class="infographic" aria-label="Human Brain Explorer infographic">
@@ -349,9 +349,9 @@
       const intensity = document.getElementById("regionIntensity");
       const regionCountBadge = document.getElementById("regionCountBadge");
       const hotspots = document.querySelectorAll(".hotspot");
-      const badgeSuffix = "Regions • Live Interactive";
+      const badgeLabel = "Regions • Live Interactive";
 
-      regionCountBadge.textContent = `${Object.keys(regionData).length} ${badgeSuffix}`;
+      regionCountBadge.textContent = `${Object.keys(regionData).length} ${badgeLabel}`;
 
       function setActiveRegion(region) {
         const info = regionData[region];
