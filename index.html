@@ -213,6 +213,17 @@
         }
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        .dot {
+          animation: none;
+          box-shadow: none;
+        }
+
+        .hotspot {
+          transition: none;
+        }
+      }
+
       @media (max-width: 900px) {
         .hero {
           flex-direction: column;
@@ -231,9 +242,9 @@
         <section class="hero" aria-label="Explorer introduction">
           <div>
             <h1>Neural Cosmos: Human Brain Explorer</h1>
-            <p>Hover or click each region to reveal function, signal intensity, and cognition profile.</p>
+            <p>Hover or click each region to reveal function, signal intensity, and cognitive profile.</p>
           </div>
-          <span class="badge">5 Regions • Live Interactive</span>
+          <span id="regionCountBadge" class="badge">Regions • Live Interactive</span>
         </section>
 
         <section class="infographic" aria-label="Human Brain Explorer infographic">
@@ -281,7 +292,7 @@
             </div>
 
             <div id="regionFact" class="fact">Tip: Click different hotspots to explore each region.</div>
-            <div class="pulse"><span class="dot" aria-hidden="true"></span>Neural activity visualizer active</div>
+            <div class="pulse"><span class="dot" aria-hidden="true"></span>Interactive visualization mode active</div>
           </aside>
         </section>
       </div>
@@ -336,7 +347,10 @@
       const fact = document.getElementById("regionFact");
       const role = document.getElementById("regionRole");
       const intensity = document.getElementById("regionIntensity");
+      const regionCountBadge = document.getElementById("regionCountBadge");
       const hotspots = document.querySelectorAll(".hotspot");
+
+      regionCountBadge.textContent = `${Object.keys(regionData).length} Regions • Live Interactive`;
 
       function setActiveRegion(region) {
         const info = regionData[region];
