@@ -6,12 +6,15 @@
     <title>Human Brain Explorer</title>
     <style>
       :root {
-        --bg: #f5f7fb;
-        --panel: #ffffff;
-        --text: #1e293b;
-        --muted: #475569;
-        --accent: #2563eb;
-        --accent-soft: #dbeafe;
+        --bg: #04091d;
+        --panel: rgba(8, 14, 36, 0.82);
+        --panel-soft: rgba(13, 22, 52, 0.7);
+        --text: #e5ecff;
+        --muted: #a8b6df;
+        --accent: #60a5fa;
+        --accent-strong: #3b82f6;
+        --accent-soft: rgba(96, 165, 250, 0.2);
+        --ring: rgba(125, 211, 252, 0.55);
       }
 
       * {
@@ -21,7 +24,9 @@
       body {
         margin: 0;
         font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: radial-gradient(circle at top, #eaf2ff, var(--bg) 45%);
+        background: radial-gradient(circle at 20% 10%, #152f70, transparent 34%),
+          radial-gradient(circle at 85% 80%, #143d7b, transparent 36%),
+          linear-gradient(140deg, #020512, #04091d 48%, #030713);
         color: var(--text);
       }
 
@@ -29,25 +34,64 @@
         min-height: 100vh;
         display: grid;
         place-items: center;
-        padding: 1.5rem;
+        padding: clamp(1rem, 2.5vw, 2.4rem);
+      }
+
+      .shell {
+        width: min(1200px, 100%);
+        display: grid;
+        gap: 1rem;
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 16px;
+        background: rgba(2, 6, 23, 0.5);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(1.3rem, 2.4vw, 2rem);
+      }
+
+      .hero p {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+      }
+
+      .badge {
+        border: 1px solid rgba(96, 165, 250, 0.45);
+        color: #dbeafe;
+        border-radius: 999px;
+        padding: 0.4rem 0.75rem;
+        background: rgba(30, 64, 175, 0.2);
+        font-size: 0.85rem;
+        white-space: nowrap;
       }
 
       .infographic {
-        width: min(1100px, 100%);
-        background: var(--panel);
-        border-radius: 18px;
-        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
-        padding: 1.5rem;
+        width: min(1200px, 100%);
+        background: linear-gradient(145deg, rgba(11, 20, 46, 0.9), rgba(5, 10, 29, 0.88));
+        border: 1px solid rgba(148, 163, 184, 0.23);
+        border-radius: 20px;
+        box-shadow: 0 26px 70px rgba(2, 6, 23, 0.55);
+        padding: clamp(1rem, 1.6vw, 1.6rem);
         display: grid;
-        gap: 1.5rem;
+        gap: 1rem;
         grid-template-columns: 2fr 1fr;
       }
 
       .brain-area {
-        background: #f8fbff;
+        background: linear-gradient(180deg, rgba(17, 29, 61, 0.92), rgba(10, 18, 42, 0.94));
         border-radius: 14px;
         padding: 1rem;
-        border: 1px solid #dbe7ff;
+        border: 1px solid rgba(147, 197, 253, 0.25);
       }
 
       .brain-title {
@@ -64,8 +108,8 @@
       }
 
       .brain-outline {
-        fill: #eff6ff;
-        stroke: #93c5fd;
+        fill: rgba(30, 58, 138, 0.25);
+        stroke: rgba(125, 211, 252, 0.95);
         stroke-width: 3;
       }
 
@@ -80,24 +124,25 @@
       .hotspot:hover,
       .hotspot:focus,
       .hotspot.active {
-        fill: #93c5fd;
-        transform: scale(1.06);
+        fill: rgba(96, 165, 250, 0.52);
+        filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.55));
+        transform: scale(1.08);
         transform-origin: center;
         outline: none;
       }
 
       .label {
         font-size: 14px;
-        fill: #1d4ed8;
+        fill: #dbeafe;
         font-weight: 600;
         pointer-events: none;
       }
 
       .panel {
-        border: 1px solid #dbe7ff;
+        border: 1px solid rgba(147, 197, 253, 0.2);
         border-radius: 14px;
         padding: 1rem;
-        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        background: linear-gradient(180deg, var(--panel), var(--panel-soft));
       }
 
       .panel h1 {
@@ -111,16 +156,80 @@
         line-height: 1.5;
       }
 
+      .meta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+
+      .meta-card {
+        background: rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 10px;
+        padding: 0.6rem;
+      }
+
+      .meta-card small {
+        display: block;
+        color: #bfdbfe;
+        margin-bottom: 0.2rem;
+      }
+
+      .meta-card strong {
+        font-size: 1rem;
+      }
+
       .fact {
         margin-top: 1rem;
         border-left: 4px solid var(--accent);
         padding: 0.7rem 0.8rem;
-        background: #eff6ff;
+        background: rgba(59, 130, 246, 0.12);
         border-radius: 8px;
         font-size: 0.95rem;
       }
 
+      .pulse {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: #c7d2fe;
+        font-size: 0.9rem;
+      }
+
+      .dot {
+        width: 10px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #22d3ee;
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        to {
+          box-shadow: 0 0 0 12px rgba(34, 211, 238, 0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dot {
+          animation: none;
+          box-shadow: none;
+        }
+
+        .hotspot {
+          transition: none;
+        }
+      }
+
       @media (max-width: 900px) {
+        .hero {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .infographic {
           grid-template-columns: 1fr;
         }
@@ -129,41 +238,64 @@
   </head>
   <body>
     <main class="page">
-      <section class="infographic" aria-label="Human Brain Explorer infographic">
-        <div class="brain-area">
-          <h2 class="brain-title">Interactive Brain Map</h2>
-          <svg viewBox="0 0 900 580" role="img" aria-labelledby="brainMapTitle">
-            <title id="brainMapTitle">Human brain regions with interactive hotspots</title>
-            <path
-              class="brain-outline"
-              d="M143 304c0-117 95-212 212-212 52 0 100 19 138 50 29-33 72-54 120-54 89 0 162 73 162 162 0 41-15 78-40 106 3 10 4 21 4 31 0 76-62 138-138 138H365c-122 0-222-99-222-221z"
-            />
+      <div class="shell">
+        <section class="hero" aria-label="Explorer introduction">
+          <div>
+            <h1>Neural Cosmos: Human Brain Explorer</h1>
+            <p>Hover or click each region to reveal function, signal intensity, and cognitive profile.</p>
+          </div>
+          <span id="regionCountBadge" class="badge" aria-live="polite" aria-atomic="true">Loading regions…</span>
+        </section>
 
-            <circle class="hotspot active" tabindex="0" data-region="frontal" cx="260" cy="250" r="54" aria-label="Frontal lobe" />
-            <text class="label" x="225" y="255">Frontal</text>
+        <section class="infographic" aria-label="Human Brain Explorer infographic">
+          <div class="brain-area">
+            <h2 class="brain-title">Interactive Brain Map</h2>
+            <svg viewBox="0 0 900 580" role="img" aria-labelledby="brainMapTitle">
+              <title id="brainMapTitle">Human brain regions with interactive hotspots</title>
+              <path
+                class="brain-outline"
+                d="M143 304c0-117 95-212 212-212 52 0 100 19 138 50 29-33 72-54 120-54 89 0 162 73 162 162 0 41-15 78-40 106 3 10 4 21 4 31 0 76-62 138-138 138H365c-122 0-222-99-222-221z"
+              />
 
-            <circle class="hotspot" tabindex="0" data-region="parietal" cx="435" cy="180" r="54" aria-label="Parietal lobe" />
-            <text class="label" x="397" y="185">Parietal</text>
+              <circle class="hotspot active" tabindex="0" data-region="frontal" cx="260" cy="250" r="54" aria-label="Frontal lobe" />
+              <text class="label" x="225" y="255">Frontal</text>
 
-            <circle class="hotspot" tabindex="0" data-region="temporal" cx="420" cy="360" r="54" aria-label="Temporal lobe" />
-            <text class="label" x="381" y="365">Temporal</text>
+              <circle class="hotspot" tabindex="0" data-region="parietal" cx="435" cy="180" r="54" aria-label="Parietal lobe" />
+              <text class="label" x="397" y="185">Parietal</text>
 
-            <circle class="hotspot" tabindex="0" data-region="occipital" cx="625" cy="260" r="54" aria-label="Occipital lobe" />
-            <text class="label" x="585" y="265">Occipital</text>
+              <circle class="hotspot" tabindex="0" data-region="temporal" cx="420" cy="360" r="54" aria-label="Temporal lobe" />
+              <text class="label" x="381" y="365">Temporal</text>
 
-            <circle class="hotspot" tabindex="0" data-region="cerebellum" cx="670" cy="390" r="48" aria-label="Cerebellum" />
-            <text class="label" x="630" y="395">Cerebellum</text>
-          </svg>
-        </div>
+              <circle class="hotspot" tabindex="0" data-region="occipital" cx="625" cy="260" r="54" aria-label="Occipital lobe" />
+              <text class="label" x="585" y="265">Occipital</text>
 
-        <aside class="panel" aria-live="polite">
-          <h1 id="regionTitle">Frontal Lobe</h1>
-          <p id="regionDescription">
-            Responsible for executive functions such as planning, decision-making, personality expression, and voluntary motor control.
-          </p>
-          <div id="regionFact" class="fact">Tip: Click different hotspots to explore each region.</div>
-        </aside>
-      </section>
+              <circle class="hotspot" tabindex="0" data-region="cerebellum" cx="670" cy="390" r="48" aria-label="Cerebellum" />
+              <text class="label" x="630" y="395">Cerebellum</text>
+            </svg>
+          </div>
+
+          <aside class="panel" aria-live="polite">
+            <h1 id="regionTitle">Frontal Lobe</h1>
+            <p id="regionDescription">
+              Responsible for executive functions such as planning, decision-making, personality expression, and voluntary motor control.
+            </p>
+
+            <div class="meta-grid" aria-label="Region metrics">
+              <div class="meta-card">
+                <small>Cognitive Role</small>
+                <strong id="regionRole">Executive Control</strong>
+              </div>
+              <div class="meta-card">
+                <small>Signal Intensity</small>
+                <strong id="regionIntensity">92%</strong>
+              </div>
+            </div>
+
+            <div id="regionFact" class="fact">Tip: Click different hotspots to explore each region.</div>
+            <div class="pulse"><span class="dot" aria-hidden="true"></span>Interactive visualization mode active</div>
+          </aside>
+        </section>
+      </div>
     </main>
 
     <script>
@@ -172,38 +304,54 @@
           title: "Frontal Lobe",
           description:
             "Responsible for executive functions such as planning, decision-making, personality expression, and voluntary motor control.",
-          fact: "Supports attention control, problem-solving, and speech production."
+          fact: "Supports attention control, problem-solving, and speech production.",
+          role: "Executive Control",
+          intensity: "92%"
         },
         parietal: {
           title: "Parietal Lobe",
           description:
             "Processes sensory input including touch, pressure, temperature, and spatial awareness.",
-          fact: "Integrates sensory information to help you navigate space and coordinate movement."
+          fact: "Integrates sensory information to help you navigate space and coordinate movement.",
+          role: "Spatial Mapping",
+          intensity: "85%"
         },
         temporal: {
           title: "Temporal Lobe",
           description:
             "Involved in hearing, language comprehension, emotional association, and memory formation.",
-          fact: "Contains structures critical for processing sound and creating long-term memories."
+          fact: "Contains structures critical for processing sound and creating long-term memories.",
+          role: "Memory + Language",
+          intensity: "88%"
         },
         occipital: {
           title: "Occipital Lobe",
           description:
             "Primary visual processing center that interprets color, shape, and motion from visual input.",
-          fact: "Turns incoming signals from the eyes into meaningful visual scenes."
+          fact: "Turns incoming signals from the eyes into meaningful visual scenes.",
+          role: "Visual Cortex",
+          intensity: "95%"
         },
         cerebellum: {
           title: "Cerebellum",
           description:
             "Coordinates balance, posture, and fine motor control to produce smooth and accurate movements.",
-          fact: "Also contributes to motor learning and timing of complex actions."
+          fact: "Also contributes to motor learning and timing of complex actions.",
+          role: "Motor Precision",
+          intensity: "90%"
         }
       };
 
       const title = document.getElementById("regionTitle");
       const description = document.getElementById("regionDescription");
       const fact = document.getElementById("regionFact");
+      const role = document.getElementById("regionRole");
+      const intensity = document.getElementById("regionIntensity");
+      const regionCountBadge = document.getElementById("regionCountBadge");
       const hotspots = document.querySelectorAll(".hotspot");
+      const badgeLabel = "Regions • Live Interactive";
+
+      regionCountBadge.textContent = `${Object.keys(regionData).length} ${badgeLabel}`;
 
       function setActiveRegion(region) {
         const info = regionData[region];
@@ -212,6 +360,8 @@
         title.textContent = info.title;
         description.textContent = info.description;
         fact.textContent = info.fact;
+        role.textContent = info.role;
+        intensity.textContent = info.intensity;
 
         hotspots.forEach((spot) => {
           spot.classList.toggle("active", spot.dataset.region === region);
